@@ -1,3 +1,11 @@
+// Menu data structure
+var menuLinks = [
+    { text: 'about', href: '/about' },
+    { text: 'catalog', href: '/catalog' },
+    { text: 'orders', href: '/orders' },
+    { text: 'account', href: '/account' },
+  ];
+
 // Part 1: Getting Started
 // 1. Select and cache the <main> element in a variable named mainEl.
 const mainEl = document.querySelector('main');
@@ -28,11 +36,16 @@ topMenuEl.style.backgroundColor = "var(--top-menu-bg)"
 topMenuEl.classList.add("flex-around");
 
 // Part 3: Adding Menu Buttons
+console.log(menuLinks);
 // 1. Iterate over the entire menuLinks array and for each "link" object:
-// 2. Create an <a> element.
-
-
-// 3. On the new element, add an href attribute with its value set to the href property of the "link" object.
-// 4. Set the new element's content to the value of the text property of the "link" object.
-// 5. Append the new element to the topMenuEl element.
-
+menuLinks.forEach(function(link) {
+    // 2. Create an <a> element.
+    const aItem = document.createElement('a');
+    // 3. On the new element, add an href attribute with its value set to the href property of the "link" object.
+    aItem.setAttribute("href", link.href);
+    // 4. Set the new element's content to the value of the text property of the "link" object.
+    aItem.textContent = link.text;
+    // 5. Append the new element to the topMenuEl element.
+    topMenuEl.appendChild(aItem);
+ 
+});

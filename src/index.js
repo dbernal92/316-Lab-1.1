@@ -2,21 +2,27 @@
 
 // Menu data structure
 var menuLinks = [
-  {text: 'about', href: '/about'},
-  {text: 'catalog', href: '#', subLinks: [
-    {text: 'all', href: '/catalog/all'},
-    {text: 'top selling', href: '/catalog/top'},
-    {text: 'search', href: '/catalog/search'},
-  ]},
-  {text: 'orders', href: '#' , subLinks: [
-    {text: 'new', href: '/orders/new'},
-    {text: 'pending', href: '/orders/pending'},
-    {text: 'history', href: '/orders/history'},
-  ]},
-  {text: 'account', href: '#', subLinks: [
-    {text: 'profile', href: '/account/profile'},
-    {text: 'sign out', href: '/account/signout'},
-  ]},
+  { text: 'about', href: '/about' },
+  {
+    text: 'catalog', href: '#', subLinks: [
+      { text: 'all', href: '/catalog/all' },
+      { text: 'top selling', href: '/catalog/top' },
+      { text: 'search', href: '/catalog/search' },
+    ]
+  },
+  {
+    text: 'orders', href: '#', subLinks: [
+      { text: 'new', href: '/orders/new' },
+      { text: 'pending', href: '/orders/pending' },
+      { text: 'history', href: '/orders/history' },
+    ]
+  },
+  {
+    text: 'account', href: '#', subLinks: [
+      { text: 'profile', href: '/account/profile' },
+      { text: 'sign out', href: '/account/signout' },
+    ]
+  },
 ];
 
 // Select and cache the <main> element in a variable named mainEl.
@@ -50,16 +56,16 @@ topMenuEl.classList.add("flex-around");
 // Adding Menu Buttons
 console.log(menuLinks);
 // Iterate over the entire menuLinks array and for each "link" object:
-menuLinks.forEach(function(link) {
-    // Create an <a> element.
-    const aItem = document.createElement('a');
-    // On the new element, add an href attribute with its value set to the href property of the "link" object.
-    aItem.setAttribute("href", link.href);
-    // Set the new element's content to the value of the text property of the "link" object.
-    aItem.textContent = link.text;
-    // Append the new element to the topMenuEl element.
-    topMenuEl.appendChild(aItem);
- 
+menuLinks.forEach(function (link) {
+  // Create an <a> element.
+  const aItem = document.createElement('a');
+  // On the new element, add an href attribute with its value set to the href property of the "link" object.
+  aItem.setAttribute("href", link.href);
+  // Set the new element's content to the value of the text property of the "link" object.
+  aItem.textContent = link.text;
+  // Append the new element to the topMenuEl element.
+  topMenuEl.appendChild(aItem);
+
 });
 
 // Part 3: Creating the Submenu
@@ -82,14 +88,14 @@ subMenuEl.style.position = "absolute";
 subMenuEl.style.top = "0";
 
 // Select and cache the all of the <a> elements inside of topMenuEl in a variable named topMenuLinks.
-const topMenuLinks = topMenuEl.getElementsByTagName('a');
+const topMenuLinks = topMenuEl.querySelectorAll('a');
 
 // Attach a delegated 'click' event listener to topMenuEl.
 // The first line of code of the event listener function should call the event object's preventDefault() method.
 // The second line of code of the function should immediately return if the element clicked was not an <a> element.
 // Log the content of the <a> to verify the handler is working.
 
-topMenuEl.addEventListener("click", function(e) {
+topMenuEl.addEventListener("click", function (e) {
   // Stops link
   e.preventDefault();
 
@@ -98,6 +104,14 @@ topMenuEl.addEventListener("click", function(e) {
 
   // Checks if clicked element is <a>
   if (e.target.tagName !== "A") return;
+
+  if (e.target.classList.contains("active")) {
+    e.target.classList.remove("active");
+    return;
+  }
+
+  topMenuLinks.forEach(link => link.classList.remove("active"));
+  e.target.classList.add("active");
 
   // Log clicked <a> content to verify it works
   console.log(e.target.textContent);

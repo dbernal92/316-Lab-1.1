@@ -2,11 +2,22 @@
 
 // Menu data structure
 var menuLinks = [
-    { text: 'about', href: '/about' },
-    { text: 'catalog', href: '/catalog' },
-    { text: 'orders', href: '/orders' },
-    { text: 'account', href: '/account' },
-  ];
+  {text: 'about', href: '/about'},
+  {text: 'catalog', href: '#', subLinks: [
+    {text: 'all', href: '/catalog/all'},
+    {text: 'top selling', href: '/catalog/top'},
+    {text: 'search', href: '/catalog/search'},
+  ]},
+  {text: 'orders', href: '#' , subLinks: [
+    {text: 'new', href: '/orders/new'},
+    {text: 'pending', href: '/orders/pending'},
+    {text: 'history', href: '/orders/history'},
+  ]},
+  {text: 'account', href: '#', subLinks: [
+    {text: 'profile', href: '/account/profile'},
+    {text: 'sign out', href: '/account/signout'},
+  ]},
+];
 
 // Select and cache the <main> element in a variable named mainEl.
 const mainEl = document.querySelector('main');
@@ -63,3 +74,31 @@ subMenuEl.style.backgroundColor = "var(--sub-menu-bg)";
 
 // Add the class of flex-around to the subMenuEl element.
 subMenuEl.classList.add("flex-around");
+
+// Set the CSS position property of subMenuEl to the value of absolute.
+subMenuEl.style.position = "absolute";
+
+// Set the CSS top property of subMenuEl to the value of 0.
+subMenuEl.style.top = "0";
+
+// Select and cache the all of the <a> elements inside of topMenuEl in a variable named topMenuLinks.
+const topMenuLinks = topMenuEl.getElementsByTagName('a');
+
+// Attach a delegated 'click' event listener to topMenuEl.
+// The first line of code of the event listener function should call the event object's preventDefault() method.
+// The second line of code of the function should immediately return if the element clicked was not an <a> element.
+// Log the content of the <a> to verify the handler is working.
+
+topMenuEl.addEventListener("click", function(e) {
+  // Stops link
+  e.preventDefault();
+
+  // Debugging to make sure clicks are being detected
+  console.log("Click on:", e.target);
+
+  // Checks if clicked element is <a>
+  if (e.target.tagName !== "A") return;
+
+  // Log clicked <a> content to verify it works
+  console.log(e.target.textContent);
+})

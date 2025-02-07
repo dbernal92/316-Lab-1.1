@@ -95,6 +95,18 @@ const topMenuLinks = topMenuEl.querySelectorAll('a');
 // The second line of code of the function should immediately return if the element clicked was not an <a> element.
 // Log the content of the <a> to verify the handler is working.
 
+// Function to build submenu dynamically
+function buildSubmenu(subLinks) {
+  subMenuEl.innerHTML = ""; // Clear submenu contents
+
+  subLinks.forEach(subLink => {
+    const subA = document.createElement("a");
+    subA.href = subLink.href;
+    subA.textContent = subLink.text;
+    subMenuEl.appendChild(subA);
+  });
+}
+
 topMenuEl.addEventListener("click", function (e) {
   // Stops link
   e.preventDefault();
@@ -107,12 +119,25 @@ topMenuEl.addEventListener("click", function (e) {
 
   if (e.target.classList.contains("active")) {
     e.target.classList.remove("active");
+    subMenuEl.style.top = "0"; // Hide submenu
     return;
-  }
+}
 
   topMenuLinks.forEach(link => link.classList.remove("active"));
   e.target.classList.add("active");
 
   // Log clicked <a> content to verify it works
   console.log(e.target.textContent);
+
+  // Find the clicked link in menuLinks
+  const clickedLink = menuLinks.find(link => link.text === e.target.textContent);
+
+  // Show or hide submenu based on whether the link has subLinks
+  if (clickedLink && clickedLink.subLinks) {
+    buildSubmenu(clickedLink.subLinks); // Populate submenu
+    subMenuEl.style.top = "100%"; // Show submenu
+  } else {
+    subMenuEl.style.top = "0"; // Hide submenu
+  }
+
 })
